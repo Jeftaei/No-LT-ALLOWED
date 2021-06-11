@@ -1,5 +1,6 @@
 import json
 import discord
+import datetime
 
 from bot import bot as bott
 from discord.ext import commands, tasks
@@ -30,7 +31,10 @@ class main(commands.Cog):
             member.kick(reason="laughable :trollxd:")
         
         self.kicks += 1
-        
+
+        print(f"Laughable kicked at {datetime.datetime.utcnow()}")
+
+
 
 def setup(bot):
     bot.add_cog(main(bot))
