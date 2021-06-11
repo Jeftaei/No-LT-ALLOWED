@@ -9,8 +9,8 @@ with open("kicks.json", "r") as kjson:
     kicklog = json.load(kjson)
 LaughableKicks = int(kicklog["kicks"])
 
-with open("alts.json") as altsjson:
-    _altlist = json.load()
+with open("alts.json", "r") as altsjson:
+    _altlist = json.load(altsjson)
 
 class main(commands.Cog):
     def __init__(self, bot):
