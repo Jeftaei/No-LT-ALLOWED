@@ -45,33 +45,21 @@ class main(commands.Cog):
     @commands.command()
     async def addalt(self, ctx, member: discord.Member):
         if ctx.author.id in losers:
-            _altlist["alts"].append(member.id)
-            with open("alts.json", "w") as ajson:
-                json.dump(_altlist, ajson, indent=4)
-            
-            # idk if i can read the files edited data right after i dumped shit into it
-            with open("alts.json", "r") as ajson2:
-                self.alts = json.load(ajson2)["alts"]
+            if member.id not in self.alts:
+                _altlist["alts"].append(member.id)
+                with open("alts.json", "w") as ajson:
+                    json.dump(_altlist, ajson, indent=4)
+                
+                # idk if i can read the files edited data right after i dumped shit into it
+                with open("alts.json", "r") as ajson2:
+                    self.alts = json.load(ajson2)["alts"]
 
-            await member.kick(reason="new laughable alt Poggers :trollxd:")
-            self.kicks += 1
+                await member.kick(reason="new laughable alt Poggers :trollxd:")
+                self.kicks += 1
 
-            chnl = self.bot.get_channel(self.send_to_channel)
-            await chnl.send(f"Laughable kick counter: {self.kicks}")
+                chnl = self.bot.get_channel(self.send_to_channel)
+                await chnl.send(f"Laughable kick counter: {self.kicks}")
 
-    @commands.command()
-    async def removealt(self, ctx, member: discord.Member):
-        if ctx.author.id in losers:
-            try:
-                _altlist["alts"].remove(member.id)
-            except:
-                await ctx.send("hey dumbass error happened ur problem not mine")
-                return
-            
-            with open("alts.json", "w") as ajson:
-                json.dump(_altlist, ajson, indent=4)
-            
-            self.alts = _altlist["alts"]
         
 
 
