@@ -2,18 +2,16 @@ import json
 import discord
 import datetime
 
-from bot import bot as bott
 from discord.ext import commands, tasks
 from discord.ext.commands.context import Context
 
 with open("kicks.json", "r") as kjson:
     kicklog = json.load(kjson)
 LaughableKicks = int(kicklog["kicks"])
-print(LaughableKicks)
 
 class main(commands.Cog):
     def __init__(self, bot):
-        self.bot = bott
+        self.bot:commands.Bot = bot
         self.kicks = LaughableKicks
 
         self.CountLaughablesKicks.start()
@@ -26,11 +24,15 @@ class main(commands.Cog):
             json.dump( { "kicks" : self.kicks }, kjson2, indent=4 )
 
     @commands.Cog.listener()
-    async def on_member_join(self, member):
+    async def on_member_join(self, member: discord.Member):
         if member.id == 365995444402126849: # laughable twister id
-            member.kick(reason="laughable :trollxd:")
+            await member.kick(reason="laughable :trollxd:")
+            print("finished kicking")
         
         self.kicks += 1
+
+        chnl = self.bot.get_channel(586631641619759194)
+        await chnl.send(f"Laughable kick counter: {self.kicks}")
 
         print(f"Laughable kicked at {datetime.datetime.utcnow()}")
 

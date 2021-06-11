@@ -6,7 +6,7 @@ import discord
 from discord.ext import tasks, commands
 _token = dotenv.dotenv_values()
 
-intnets = discord.Intents.default()
+intnets = discord.Intents.all()
 
 bot = commands.Bot(command_prefix="fucklaughable", intents=intnets)
 
