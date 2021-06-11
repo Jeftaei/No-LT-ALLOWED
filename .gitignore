@@ -1,5 +1,4 @@
 .env
 .vscode
-.gitattributes
 __pycache__/*
 __pycache__

@@ -8,7 +8,7 @@ _token = dotenv.dotenv_values()
 
 intnets = discord.Intents.all()
 
-bot = commands.Bot(command_prefix="fucklaughable", intents=intnets)
+bot = commands.Bot(command_prefix=".", intents=intnets)
 
 for filename in os.listdir('./cogs'):
     if filename.endswith('.py'):
