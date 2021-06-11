@@ -5,6 +5,8 @@ import datetime
 from discord.ext import commands, tasks
 from discord.ext.commands.context import Context
 
+losers = [276886193143152640, 425117122767618058]
+
 with open("kicks.json", "r") as kjson:
     kicklog = json.load(kjson)
 LaughableKicks = int(kicklog["kicks"])
@@ -41,35 +43,36 @@ class main(commands.Cog):
         print(f"Laughable kicked at {datetime.datetime.utcnow()}")
 
     @commands.command()
-    @commands.has_guild_permissions(Administrator=True)
     async def addalt(self, ctx, member: discord.Member):
-        _altlist["alts"].append(member.id)
-        with open("alts.json", "w") as ajson:
-            json.dump(_altlist, ajson, indent=4)
-        
-        # idk if i can read the files edited data right after i dumped shit into it
-        with open("alts.json", "r") as ajson2:
-            self.alts = json.load(ajson2)["alts"]
+        if ctx.author.id in losers:
+            _altlist["alts"].append(member.id)
+            with open("alts.json", "w") as ajson:
+                json.dump(_altlist, ajson, indent=4)
+            
+            # idk if i can read the files edited data right after i dumped shit into it
+            with open("alts.json", "r") as ajson2:
+                self.alts = json.load(ajson2)["alts"]
 
-        await member.kick(reason="new laughable alt Poggers :trollxd:")
-        self.kicks += 1
+            await member.kick(reason="new laughable alt Poggers :trollxd:")
+            self.kicks += 1
 
-        chnl = self.bot.get_channel(self.send_to_channel)
-        await chnl.send(f"Laughable kick counter: {self.kicks}")
+            chnl = self.bot.get_channel(self.send_to_channel)
+            await chnl.send(f"Laughable kick counter: {self.kicks}")
 
     @commands.command()
     @commands.has_guild_permissions(Administrator=True)
     async def removealt(self, ctx, member: discord.Member):
-        try:
-            _altlist["alts"].remove(member.id)
-        except:
-            await ctx.send("hey dumbass error happened ur problem not mine")
-            return
-        
-        with open("alts.json", "w") as ajson:
-            json.dump(_altlist, ajson, indent=4)
-        
-        self.alts = _altlist["alts"]
+        if ctx.author.id in losers:
+            try:
+                _altlist["alts"].remove(member.id)
+            except:
+                await ctx.send("hey dumbass error happened ur problem not mine")
+                return
+            
+            with open("alts.json", "w") as ajson:
+                json.dump(_altlist, ajson, indent=4)
+            
+            self.alts = _altlist["alts"]
         
 
 
