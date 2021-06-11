@@ -35,12 +35,12 @@ class main(commands.Cog):
         if member.id in self.alts: # laughable twister id
             await member.kick(reason="laughable :trollxd:")
         
-        self.kicks += 1
+            self.kicks += 1
 
-        chnl = self.bot.get_channel(self.send_to_channel)
-        await chnl.send(f"Laughable kick counter: {self.kicks}")
+            chnl = self.bot.get_channel(self.send_to_channel)
+            await chnl.send(f"Laughable kick counter: {self.kicks}")
 
-        print(f"Laughable kicked at {datetime.datetime.utcnow()}")
+            print(f"Laughable kicked at {datetime.datetime.utcnow()}")
 
     @commands.command()
     async def addalt(self, ctx, member: discord.Member):
