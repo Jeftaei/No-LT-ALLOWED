@@ -60,7 +60,6 @@ class main(commands.Cog):
             await chnl.send(f"Laughable kick counter: {self.kicks}")
 
     @commands.command()
-    @commands.has_guild_permissions(Administrator=True)
     async def removealt(self, ctx, member: discord.Member):
         if ctx.author.id in losers:
             try:
