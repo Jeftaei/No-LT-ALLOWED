@@ -3,9 +3,6 @@ import discord
 import datetime
 
 from discord.ext import commands, tasks
-from discord.ext.commands.context import Context
-
-losers = [276886193143152640, 425117122767618058]
 
 with open("kicks.json", "r") as kjson:
     kicklog = json.load(kjson)
@@ -59,7 +56,6 @@ class main(commands.Cog):
             self.dumpalts()
             self.reloadalts()
             
-            print(member, member.id)
             await member.kick(reason="new laughable alt Poggers :trollxd:")
             self.kicks += 1
 
@@ -67,8 +63,6 @@ class main(commands.Cog):
             await chnl.send(f"Laughable kick counter: {self.kicks}")
 
         
-
-
 
 def setup(bot):
     bot.add_cog(main(bot))
