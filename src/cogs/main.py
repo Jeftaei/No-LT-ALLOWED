@@ -52,18 +52,19 @@ class main(commands.Cog):
             print(f"Laughable kicked at {datetime.datetime.utcnow()}")
 
     @commands.command()
+    @commands.has_permissions(kick_members=True)
     async def addalt(self, ctx, member: discord.Member):
-        if ctx.author.id in losers:
-            if member.id not in self.alts:
-                _altlist["alts"].append(member.id)
-                self.dumpalts()
-                self.reloadalts()
-                
-                await member.kick(reason="new laughable alt Poggers :trollxd:")
-                self.kicks += 1
+        if member.id not in self.alts:
+            _altlist["alts"].append(member.id)
+            self.dumpalts()
+            self.reloadalts()
+            
+            print(member, member.id)
+            await member.kick(reason="new laughable alt Poggers :trollxd:")
+            self.kicks += 1
 
-                chnl = self.bot.get_channel(self.send_to_channel)
-                await chnl.send(f"Laughable kick counter: {self.kicks}")
+            chnl = self.bot.get_channel(self.send_to_channel)
+            await chnl.send(f"Laughable kick counter: {self.kicks}")
 
         
 
