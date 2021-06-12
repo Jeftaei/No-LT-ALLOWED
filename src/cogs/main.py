@@ -4,41 +4,32 @@ import datetime
 
 from discord.ext import commands, tasks
 
-with open("kicks.json", "r") as kjson:
-    kicklog = json.load(kjson)
-LaughableKicks = int(kicklog["kicks"])
-
-with open("alts.json", "r") as altsjson:
-    _altlist = json.load(altsjson)
+with open("json.json", "r") as stuff:
+    stuff = json.load(stuff)
 
 class main(commands.Cog):
     def __init__(self, bot):
         self.bot:commands.Bot = bot
-        self.kicks = LaughableKicks
-        self.alts = _altlist["alts"]
+        self.kicks = stuff["kicks"]
+        self.alts = stuff["accounts"]
         self.send_to_channel = 586631641619759194
 
-        self.DumpLaughablesKicks.start()
+        self.updatejson.start()
 
         print("main Cog Loaded")
 
-    def reloadalts(self):
-        with open("alts.json", "r") as ajson3:
-            _altlist = json.load(ajson3)
-        self.alts = _altlist["alts"]
+    def reloadjson(self):
+        with open("json.json", "w") as json2:
+            json.dump( { "accounts": self.alts, "kicks": self.kicks }, json2, indent=4 )
 
-    def dumpalts(self):
-        with open("alts.json", "w") as ajson4:
-            json.dump(_altlist, ajson4, indent=4)
-
-    @tasks.loop(minutes=1)
-    async def DumpLaughablesKicks(self):
-        with open("kicks.json", "w") as kjson2:
-            json.dump( { "kicks" : self.kicks }, kjson2, indent=4 )
+    @tasks.loop(minutes=5)
+    async def updatejson(self):
+        # sick task right?
+        self.reloadjson()
 
     @commands.Cog.listener()
     async def on_member_join(self, member: discord.Member):
-        if member.id in self.alts: # laughable twister id
+        if member.id in self.alts:
             await member.kick(reason="laughable :trollxd:")
         
             self.kicks += 1
@@ -52,12 +43,11 @@ class main(commands.Cog):
     @commands.has_permissions(kick_members=True)
     async def addalt(self, ctx, member: discord.Member):
         if member.id not in self.alts:
-            _altlist["alts"].append(member.id)
-            self.dumpalts()
-            self.reloadalts()
-            
-            await member.kick(reason="new laughable alt Poggers :trollxd:")
+            self.alts.append(member.id)
             self.kicks += 1
+            self.reloadjson()
+
+            await member.kick(reason="new laughable alt Poggers :trollxd:")
 
             chnl = self.bot.get_channel(self.send_to_channel)
             await chnl.send(f"Laughable kick counter: {self.kicks}")
