@@ -1,14 +1,12 @@
 import os
-import json
 import dotenv
 import discord
 
 from discord.ext import tasks, commands
 _token = dotenv.dotenv_values()
 
-intnets = discord.Intents.all()
-
-bot = commands.Bot(command_prefix=".", intents=intnets)
+intents = discord.Intents.all()
+bot = commands.Bot(command_prefix=".", intents=intents)
 
 for filename in os.listdir('./cogs'):
     if filename.endswith('.py'):

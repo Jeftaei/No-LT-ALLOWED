@@ -2,10 +2,6 @@ import discord
 from discord.ext import commands
 import traceback
 import sys
-from discord.ext.commands.errors import MemberNotFound
-import mysql.connector
-import datetime
-import time
 
 
 class CommandErrorHandler(commands.Cog):

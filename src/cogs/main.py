@@ -25,6 +25,9 @@ class main(commands.Cog):
     @tasks.loop(minutes=5)
     async def updatejson(self):
         # sick task right?
+        # the only reason for this is to update the kicks, 
+        # i dont do it in the on_member_join function because i dont wanna open and close the file
+        # several times in a short period of time
         self.reloadjson()
 
     @commands.Cog.listener()
