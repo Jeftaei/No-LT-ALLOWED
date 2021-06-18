@@ -12,9 +12,7 @@ class main(commands.Cog):
         self.bot:commands.Bot = bot
         self.kicks = stuff["kicks"]
         self.alts = stuff["accounts"]
-        self.send_to_channel = 586631641619759194
-
-        self.updatejson.start()
+        self.logchannel = 586631641619759194
 
         print("main Cog Loaded")
 
@@ -29,7 +27,7 @@ class main(commands.Cog):
         
             self.kicks += 1
 
-            chnl = self.bot.get_channel(self.send_to_channel)
+            chnl = self.bot.get_channel(self.logchannel)
             await chnl.send(f"Laughable kick counter: {self.kicks}")
 
             self.reloadjson()
@@ -46,7 +44,7 @@ class main(commands.Cog):
 
             await member.kick(reason="new laughable alt Poggers :trollxd:")
 
-            chnl = self.bot.get_channel(self.send_to_channel)
+            chnl = self.bot.get_channel(self.logchannel)
             await chnl.send(f"Laughable kick counter: {self.kicks}")
 
         
