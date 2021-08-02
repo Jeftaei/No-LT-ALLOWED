@@ -42,7 +42,7 @@ class main(commands.Cog):
             self.kicks += 1
             self.reloadjson()
 
-            await member.kick(reason="new laughable alt Poggers :trollxd:")
+            await member.kick(reason="new laughable alt :trollxd:")
 
             chnl = self.bot.get_channel(self.logchannel)
             await chnl.send(f"Laughable kick counter: {self.kicks}")
