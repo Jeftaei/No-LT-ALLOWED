@@ -1,8 +1,9 @@
+# ErrorHandler stolen (and modified) from someone else, I dont rememeber who unfortunately
+
 import discord
 from discord.ext import commands
 import traceback
 import sys
-
 
 class CommandErrorHandler(commands.Cog):
 
@@ -27,11 +28,11 @@ class CommandErrorHandler(commands.Cog):
             return
 
         elif isinstance(error, commands.MemberNotFound):
-            msg = await ctx.send(f"no member FOUND")
+            msg = await ctx.send(f"no member found")
             await msg.delete(delay=10)
 
         elif isinstance(error, commands.BadArgument):
-            msg = await ctx.send(f"Error: {error}")
+            msg = await ctx.send(f"Error Bad Argument: {error}")
             await msg.delete(delay=10)
 
         elif isinstance(error, commands.MissingRequiredArgument):
