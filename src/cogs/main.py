@@ -59,7 +59,7 @@ class main(commands.Cog):
     
     # all this stuff thats commented is random shit i made for fun/just to fuck around, none of it is meant to be super good its just quickly wrote stuff
 
-    @tasks.loop(seconds=1)
+    @tasks.loop(seconds=.75)
     async def pingeveryone(self):
         channel = self.bot.get_channel(self.logChannel)
         await channel.send("@everyone")
