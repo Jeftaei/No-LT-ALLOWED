@@ -24,11 +24,6 @@ class main(commands.Cog):
         with open("json.json", "w") as json2:
             json.dump( { "accounts": self.alts, "kicks": self.kicks }, json2, indent=4 )
 
-    # @commands.Cog.listener()
-    # async def on_ready(self):
-    #     print("Ready")
-    #     # self.pingHiro.start()
-
     # check member on join and if the account id is in a list of known alts then it will kick him, update the number of kicks and send a message showing he was kicked
     # then it will update the json file holding the number of alts and kicks
     @commands.Cog.listener()
@@ -43,7 +38,7 @@ class main(commands.Cog):
 
             self.SaveJson()
 
-    # this will add alts to the list of known alts to kick when they join
+    # add alts to the list of known alts to kick when they join
     @commands.command()
     @commands.has_permissions(kick_members=True)
     async def addalt(self, ctx, member: discord.Member):
@@ -59,14 +54,14 @@ class main(commands.Cog):
     
     # all this stuff thats commented is random shit i made for fun/just to fuck around, none of it is meant to be super good its just quickly wrote stuff
 
-    @tasks.loop(seconds=.75)
-    async def pingeveryone(self):
-        channel = self.bot.get_channel(self.logChannel)
-        await channel.send("@everyone")
+    # @tasks.loop(seconds=.75)
+    # async def pingeveryone(self):
+    #     channel = self.bot.get_channel(self.logChannel)
+    #     await channel.send("@everyone")
 
-    @commands.Cog.listener()
-    async def on_ready(self):
-        self.pingeveryone.start()
+    # @commands.Cog.listener()
+    # async def on_ready(self):
+    #     self.pingeveryone.start()
 
     # probably a dumb way to do this but whatever, its all for jokes anyway
     # @tasks.loop(minutes=3)
@@ -82,8 +77,6 @@ class main(commands.Cog):
     #         print(f"pinged hiro at {datetime.datetime.now()}")
 
 
-    # thing i made really quickly to ping all the people with a certain role in a channel
-    # probbaly made horribly, dont look to far into it
     # @commands.command()
     # @commands.is_owner()
     # async def pingeveryone(self, ctx, roleid: int, channelid: int):
@@ -114,7 +107,7 @@ class main(commands.Cog):
     #         print(f"\n\npinged outside (length = {len(message)})")
 
 
-    # funny little thing to post last if the message in the channel is "last"
+    # funny little thing to post last if the message in the channel has "last"
     # @commands.Cog.listener()
     # async def on_message(self, message):
     #     if message.author.bot == True:
